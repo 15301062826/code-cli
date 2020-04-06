@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+                PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+                "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="./generator/generator-config.properties"/>
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!--通用 Mapper 插件，可以生成带注解的实体类-->
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper,tk.mybatis.mapper.hsqldb.HsqldbMapper"/>
+            <property name="caseSensitive" value="true"/>
+            <property name="forceAnnotation" value="true"/>
+            <property name="beginningDelimiter" value="`"/>
+            <property name="endingDelimiter" value="`"/>
+            <property name="needsSwagger" value="true"/>
+            <property name="lombok" value="Getter,Setter,Data,ToString,Accessors,EqualsAndHashCode"/>
+        </plugin>
+
+        <!-- 定义生成的 dto 对象-->
+        <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
+            <property name="targetProject" value="../${gen.artifactId}-service/src/main/java"/>
+            <property name="targetPackage" value="com.jd.${gen.artifactId}.dto"/>
+            <property name="templatePath" value="file:./src/main/resources/generator/dto.ftl"/>
+            <property name="suffix" value="DTO"/>
+            <property name="fileName" value="${tableClass.shortClassName}${suffix}.java"/>
+        </plugin>
+
+        <!-- 定义生成的 mapper 对象-->
+        <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
+            <property name="targetProject" value="../${gen.artifactId}-dao/src/main/java"/>
+            <property name="targetPackage" value="com.jd.${gen.artifactId}.mapper"/>
+            <property name="templatePath" value="file:./src/main/resources/generator/mapper.ftl"/>
+            <property name="suffix" value="Mapper"/>
+            <property name="fileName" value="${tableClass.shortClassName}${suffix}.java"/>
+        </plugin>
+
+        <!-- 定义生成的 service 对象-->
+        <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
+            <property name="targetProject" value="../${gen.artifactId}-service/src/main/java"/>
+            <property name="targetPackage" value="com.jd.${gen.artifactId}.service"/>
+            <property name="templatePath" value="file:./src/main/resources/generator/service.ftl"/>
+            <property name="suffix" value="Service"/>
+            <property name="fileName" value="${tableClass.shortClassName}${suffix}.java"/>
+        </plugin>
+
+        <!-- 定义生成的 service impl 对象-->
+        <plugin type="tk.mybatis.mapper.generator.TemplateFilePlugin">
+            <property name="targetProject" value="../${gen.artifactId}-service/src/main/java"/>
+            <property name="targetPackage" value="com.jd.${gen.artifactId}.service.impl"/>
+            <property name="templatePath" value="file:./src/main/resources/generator/service-impl.ftl"/>
+            <property name="suffix" value="ServiceImpl"/>
+            <property name="fileName" value="${tableClass.shortClassName}${suffix}.java"/>
+        </plugin>
+
+        <!-- mysql配置 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="${gen.jdbc.url}">
+            <!-- 针对mysql数据库 -->
+            <property name="useInformationSchema" value="true"></property>
+
+        </jdbcConnection>
+
+        <!-- entity 领域模型 -->
+        <javaModelGenerator targetPackage="com.jd.${gen.artifactId}.entity"
+                            targetProject="../${gen.artifactId}-dao/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.jd.turbo.sdk.core.entity.BaseEntity"/>
+        </javaModelGenerator>
+
+
+        <!-- 表 -->
+        <table tableName="%">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
+

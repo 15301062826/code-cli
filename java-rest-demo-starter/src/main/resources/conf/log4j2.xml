@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+
+    <Properties>
+        <property name="app_name">java-rest-demo</property>
+        <property name="log_path">/export/Logs/${app_name}</property>
+        <property name="log_size">1 MB</property>
+        <property name="log_file_count">200</property>
+
+        <property name="log_level">info</property>
+        <property name="patternLayout">[%-d{yyyy-MM-dd HH:mm:ss:SSS}] [%p] [%t:%r] [%X{traceId} %X{spanId} %X{sampled}] [%C{2}.%M(%F:%L)] - %m%n</property>
+
+        <property name="encoding">UTF-8</property>
+    </Properties>
+
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout charset="${encoding}" pattern="${patternLayout}"/>
+        </Console>
+
+        <RollingFile name="log.warn" fileName="${log_path}/warn.log"
+                     filePattern="${log_path}/warn.log.%i">
+            <PatternLayout pattern="${patternLayout}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${log_size}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${log_file_count}" fileIndex="min"/>
+            <Filters>
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+
+        <RollingFile name="log.error" fileName="${log_path}/error.log"
+                     filePattern="${log_path}/error.log.%i">
+            <PatternLayout pattern="${patternLayout}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${log_size}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${log_file_count}" fileIndex="min"/>
+            <Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <RollingFile name="log.info" fileName="${log_path}/info.log"
+                     filePattern="${log_path}/info.log.%i">
+            <PatternLayout pattern="${patternLayout}" charset="${encoding}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${log_size}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${log_file_count}" fileIndex="min"/>
+        </RollingFile>
+
+        <RollingFile name="log.sql" fileName="${log_path}/sql.log"
+                     filePattern="${log_path}/sql.log.%i">
+            <PatternLayout pattern="${patternLayout}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="${log_size}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${log_file_count}"/>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+       <!-- <AsyncLogger name="${app_package}.dao" level="${log_level}" additivity="false">
+            <AppenderRef ref="sql"/>
+        </AsyncLogger>-->
+
+        <Root level="${log_level}">
+            <AppenderRef ref="log.info"/>
+            <AppenderRef ref="log.warn"/>
+            <AppenderRef ref="log.error"/>
+            <AppenderRef ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>
+
