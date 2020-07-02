@@ -20,7 +20,7 @@
         <version.checkstyle>8.19</version.checkstyle>
         <version.mybatis>3.5.1</version.mybatis>
         <version.mapper-spring-boot-starter>2.1.5</version.mapper-spring-boot-starter>
-        <version.mysql>5.1.46</version.mysql>
+        <version.mysql>8.0.16</version.mysql>
         <version.turbo>0.0.1-SNAPSHOT</version.turbo>
 
         <version.micrometer-registry-prometheus>1.1.2</version.micrometer-registry-prometheus>
