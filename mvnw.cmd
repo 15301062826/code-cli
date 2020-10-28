@@ -86,11 +86,14 @@ goto error
 @REM Fallback to current working directory if not found.
 
 set MAVEN_PROJECTBASEDIR=%MAVEN_BASEDIR%
+#tian ji
 IF NOT "%MAVEN_PROJECTBASEDIR%"=="" goto endDetectBaseDir
 @REM Find the project base dir, i.e. the directory that contains the folder ".mvn".
 @REM Fallback to current working directory if not found.
-
+#添加一行
+#有问题么
 set MAVEN_PROJECTBASEDIR=%MAVEN_BASEDIR%
+#会怎么样
 IF NOT "%MAVEN_PROJECTBASEDIR%"=="" goto endDetectBaseDir
 set EXEC_DIR=%CD%
 set WDIR=%EXEC_DIR%
