@@ -12,7 +12,12 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>com.jd.turbo</name>
     <description>create by turbo</description>
-
+    </parent>
+    <groupId>com.jd.turbo</groupId>
+    <artifactId>java-rest-demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>com.jd.turbo</name>
+    <description>create by turbo</description>
     <properties>
         <java.version>1.8</java.version>
         <version.maven-checkstyle-plugin>3.0.0</version.maven-checkstyle-plugin>
@@ -194,3 +199,5 @@
     <module>generator</module>
   </modules>
 </project>
+
+
